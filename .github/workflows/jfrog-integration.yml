@@ -1,0 +1,47 @@
+name: JFrog Integration Demo
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write   # Required for OIDC authentication
+
+jobs:
+  jfrog-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v3
+        env:
+          JF_URL: https://artifactory.stage.0658b-techopscore.com
+        with:
+          oidc-provider-name: github-oidc  # Uses GitHub OIDC authentication
+          version: latest
+
+      - name: Authenticate JFrog CLI
+        run: |
+          jfrog config show
+          jfrog rt ping
+
+      - name: Build Docker Image
+        run: |
+          docker build -t artifactory.stage.0658b-techopscore.com/artifactory/docker-appcode-dev/docker-demo:latest .
+
+      - name: Login to JFrog Artifactory Docker Registry
+        run: |
+          jfrog rt docker-login
+
+      - name: Push Docker Image to JFrog
+        run: |
+          docker push artifactory.stage.0658b-techopscore.com/artifactory/docker-appcode-dev/docker-demo:latest
+
+      - name: Store Build Artifacts in JFrog
+        run: |
+          jfrog rt upload "src/app/*" generic-local/app/

@@ -36,3 +36,11 @@ jfrog-github-actions-demo/
 │   ├── jfrog-integration.yml      # GitHub Actions workflow
 │── .gitignore                      # Ignore unnecessary files
 │── README.md                      # Documentation
+
+
+**🎯 Slide Summary:**
+- **Explain CI/CD flow from GitHub to JFrog.**  
+- **Highlight security benefits of OIDC (No credentials required).**  
+- **Showcase JFrog CLI + Artifactory integration.**  
+- **Demonstrate how JFrog Xray secures the pipeline.**  
+- **Position JFrog Marketplace integrations for future enhancements.** 

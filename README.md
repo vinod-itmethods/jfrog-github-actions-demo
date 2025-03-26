@@ -44,3 +44,5 @@ jfrog-github-actions-demo/
 - **Showcase JFrog CLI + Artifactory integration.**  
 - **Demonstrate how JFrog Xray secures the pipeline.**  
 - **Position JFrog Marketplace integrations for future enhancements.** 
+
+test
